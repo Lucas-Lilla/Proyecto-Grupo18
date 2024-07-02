@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="/preguntados/public/estilos/admin.css">
+    <link rel="stylesheet" href="/preguntados/public/estilos/modalAbandono.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tuHASH...==" crossorigin="anonymous" />
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <script type="text/javascript" src="https://superal.github.io/canvas2image/canvas2image.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages': ['corechart']});
+        google.charts.setOnLoadCallback(drawEdadChart);
+        google.charts.setOnLoadCallback(drawSexoChart);
+        google.charts.setOnLoadCallback(drawPaisChart);
+
+        function drawEdadChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Edades');
+            data.addColumn('number', 'Cantidad de usuarios');
+            data.addColumn({type: 'string', role: 'style'});
+
+            var rows = JSON.parse('{{{filasEdad}}}');
+            var dataArray = [];
+            rows.forEach(function (row) {
+                dataArray.push([row.categoria, row.cantidad_usuarios, row.color]);
+            });
+            data.addRows(dataArray);
+
+            var options = {
+                title: 'Cantidad de Usuarios por Rango de Edad',
+                hAxis: {title: 'Rango de Edad'},
+                vAxis: {
+                    title: 'Cantidad de Usuarios',
+                    format: '0',
+                },
+                legend: 'none',
+                width: 370,
+                height: 400,
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('edades'));
+            chart.draw(data, options);
+        }
+
+        function drawSexoChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Sexos');
+            data.addColumn('number', 'Cantidad de usuarios');
+            data.addColumn({type: 'string', role: 'style'});
+
+            var rows = JSON.parse('{{{filasSexo}}}');
+            var dataArray = [];
+            rows.forEach(function (row) {
+                dataArray.push([row.categoria, row.cantidad_usuarios, row.color]);
+            });
+            data.addRows(dataArray);
+
+            var options = {
+                title: 'Cantidad de Usuarios por Sexo',
+                width: 370,
+                height: 400,
+                colors: ['#277ab6', '#da97a0', '#ba58fd']
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('sexos'));
+            chart.draw(data, options);
+        }
+
+        function drawPaisChart() {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Paises');
+            data.addColumn('number', 'Cantidad de usuarios');
+            data.addColumn({type: 'string', role: 'style'});
+
+            var rows = JSON.parse('{{{filasPais}}}');
+            var dataArray = [];
+            rows.forEach(function (row) {
+                dataArray.push([row.categoria, row.cantidad_usuarios, row.color]);
+            });
+            data.addRows(dataArray);
+
+            var options = {
+                title: 'Cantidad de Usuarios por Pais',
+                hAxis: {title: 'Paises'},
+                vAxis: {
+                    title: 'Cantidad de Usuarios',
+                    format: '0',
+                },
+                legend: 'none',
+                width: 370,
+                height: 400,
+            };
+
+            var chart = new google.visualization.ColumnChart(document.getElementById('paises'));
+            chart.draw(data, options);
+        }
+    </script>
+
+</head>
+<body>
+<div class="header">
+    <div class="filtro-fecha">
+        <form method="post" action="/preguntados/admin/mostrarPantallaAdmin">
+            <div class="fecha-container">
+                <label for="fechaLimiteInferior">Desde </label>
+                <input type="date" name="fechaLimiteInferior" class="input" required value="{{fechaLimiteInferior}}">
+            </div>
+            <div class="fecha-container">
+                <label for="fechaLimiteSuperior">Hasta </label>
+                <input type="date" name="fechaLimiteSuperior" class="input" required value="{{fechaLimiteSuperior}}">
+            </div>
+            <input type="submit" value="Aplicar Filtro">
+        </form>
+    </div>
+    <div class="header-right">
+        <h1>Hola Admin</h1>
+        <a href="javascript:void(0)" class="boton-margen" id="openCustomExitModal">
+            <span class="material-symbols-outlined">logout</span>
+        </a>
+    </div>
+</div>
+
+
+
+
+
+
+<ul class="estadisticas">
+    <p>¡Detective, los números no mienten! Aquí están las estadísticas clave que podrían resolver el caso.</p>
+    <li>
+        <i class="fas fa-users"></i> Cantidad de jugadores que tiene la aplicación: {{jugadoresTotales}}
+    </li>
+    <li>
+        <i class="fas fa-gamepad"></i> Cantidad de partidas jugadas: {{partidasTotales}}
+    </li>
+    <li>
+        <i class="fas fa-question"></i> Cantidad de preguntas en el juego: {{preguntasTotales}}
+    </li>
+    <li>
+        <i class="fas fa-plus"></i> Cantidad de preguntas creadas por usuarios: {{preguntasDeUsuarios}}
+    </li>
+    <li>
+        <i class="fas fa-user-plus"></i> Cantidad de usuarios nuevos: {{jugadoresNuevos}}
+    </li>
+    <li>
+        <i class="fas fa-percentage"></i> Porcentaje de preguntas respondidas
+        correctamente: {{preguntasRespondidasCorrectamente}}%
+    </li>
+</ul>
+
+<div id="graficos">
+    <div id="edades"></div>
+    <div id="sexos"></div>
+    <div id="paises"></div>
+</div>
+
+<a href="#" id="generar-pdf">Generar PDF</a>
+
+<!-- Modal de confirmación de abandono -->
+<div id="customExitModal" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <h3>Confirmar Salida</h3>
+            <span class="close-custom" id="closeCustomExitModal">&times;</span>
+        </div>
+        <div class="modal-body-custom">
+            ¿Estás seguro de que deseas abandonar la plataforma?
+        </div>
+        <div class="modal-footer-custom">
+            <!-- Botón para cancelar -->
+            <button id="customCancelButton" class="boton-cancelar-custom">Cancelar</button>
+            <!-- Enlace para salir -->
+            <a href='/preguntados/lobby/cerrarSesion' class="boton-abandonar-custom">Salir</a>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#generar-pdf").click(function (event) {
+            event.preventDefault();
+
+            html2canvas($('#graficos')[0]).then(function (canvas) {
+
+                var imgData = canvas.toDataURL('image/png');
+
+                var formData = new FormData();
+                formData.append('imagen', imgData);
+
+                $.ajax({
+                    url: 'guardarImagenTemporal',
+                    type: 'POST',
+                    data: formData,
+                    contentType: false,
+                    processData: false,
+                    success: function (response) {
+                        console.log('Imagen subida correctamente:', response);
+                        window.location.href = '/preguntados/admin/mostrarPantallaAdmin?generarPdf=1';
+                    },
+                    error: function (xhr, status, error) {
+                        console.error('Error al subir la imagen:', error);
+                    }
+                });
+            });
+        });
+
+        $("#openCustomExitModal").click(function () {
+            $("#customExitModal").show();
+        });
+
+        $("#closeCustomExitModal, #customCancelButton").click(function () {
+            $("#customExitModal").hide();
+        });
+    });
+</script>
+<script src="/preguntados/public/js/customModal.js"></script>
+
+</body>
+</html>

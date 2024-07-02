@@ -1,0 +1,554 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    background-image: url(/preguntados/public/imagenes/fondoEditor.png);
+    backdrop-filter: blur(4px);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* Estilos para la sección de introducción */
+.intro {
+    background-color: #2c3e50;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    color: #ecf0f1;
+    text-align: center;
+    margin-bottom: 30px;
+    border: 2px solid #2980b9;
+    position: relative;
+
+}
+
+
+.intro::before {
+    content: '🔍';
+    font-size: 50px;
+    position: absolute;
+    top: -45px;
+    left: calc(48% - 25px);
+}
+
+.intro h1 {
+    font-family: 'Special Elite', cursive;
+    font-size: 40px;
+    margin: 20px 0;
+    text-transform: uppercase;
+    color: #e74c3c;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}
+
+.intro p {
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    margin-bottom: 15px;
+    color: #bdc3c7;
+}
+
+/* Cabecera */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    width: 100%;
+    padding: 10px 0;
+}
+
+/* Título Editor */
+.header h1 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1C1C1C;
+    text-align: center;
+    width: auto;
+    min-width: 150px;
+    border-radius: 10px;
+    padding: 10px 20px;
+    font-size: 1.5em;
+    font-family: 'Special Elite', cursive;
+    color: white;
+    border: 3px solid #005f73;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.header h1::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(0, 95, 115, 0.3), rgba(0, 95, 115, 0));
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.header h1:hover::before {
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+}
+
+/* Botón margen */
+.boton-margen {
+    background-color: #9b0c0c;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 14px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.boton-margen:hover {
+    background-color: #470909;
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.boton-margen:focus {
+    outline: none;
+}
+
+/*  animación de desvanecimiento */
+.intro {
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+
+#seccionSugeridas h2, #seccionReportadas h2 {
+    font-family: 'Special Elite', cursive;
+}
+
+
+/* Estilos para las secciones y botones */
+.opciones {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+
+.opciones button {
+    background-color: #005f73;
+    min-height: 60px;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    font-size: 15px;
+    text-transform: uppercase;
+
+}
+
+.opciones button:hover {
+    background-color: #004154;
+}
+
+.opciones button:focus {
+    outline: none;
+}
+
+.seccion {
+    display: none;
+    margin-top: 20px;
+
+}
+
+/* Estilos para las preguntas */
+.tabla-preguntas {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.pregunta {
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.pregunta-cuadrado {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width:30%;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.botones {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Estilos adicionales para los botones */
+.botones a {
+    color: #fff;
+    background-color: #005f73;
+    padding: 10px 20px;
+    border-radius: 5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    text-decoration: none;
+}
+
+
+.botones a:hover {
+    background-color:  #ba58fd;
+}
+/* ----------------------SECCION CREAR  PREGUNTA------------------------------- */
+
+.botonCrear{
+    padding: 15px 25px;
+    background-color: #CEAA80;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.botonCrear:hover{
+    background-color: #005f73;
+}
+.seccionDarDeAlta{
+    background-color: #333;
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+/* ----------------------SECCION REPORTAR  PREGUNTA------------------------------- */
+
+.preguntaReportada {
+    color: white;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    justify-content: space-between;
+    align-items: flex-start;
+    background-color: #333;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+.pregunta-info {
+    flex: 1;
+    margin-right: 20px;
+    min-width: 65%;
+}
+
+.reporte-info {
+    flex: 1;
+    min-height: 50%;
+    background-color: #9b9595;
+    padding: 5px;
+    border-radius: 15px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 99%;
+}
+.reporte-info h3{
+    padding-left: 10px;
+    text-transform: uppercase;
+    margin: 10px;
+    color: black
+}
+#seccionReportadas h1{
+    font-family: 'Special Elite', cursive;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: #5a0a0a;
+}
+
+.preguntaReportada h2,
+.preguntaReportada p
+{
+    margin: 15px 0;
+}
+.uppercase{
+    text-transform: uppercase;
+color:  #9b9595;
+}
+
+.preguntaReportada ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.preguntaReportada ul li , .reporte-info ul li  {
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    box-shadow:  inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+.preguntaReportada .reporte-info ul li {
+    margin: 10px;
+    padding: 20px;
+    overflow-wrap: break-word;
+}
+
+.preguntaReportada ul li p {
+    margin: 5px 0;
+}
+
+.preguntaReportada button {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin: 5px 5px 5px 0;
+    box-shadow:  inset 0 0 10px rgba(0, 0, 0, 0.3);
+
+
+}
+
+.preguntaReportada a {
+    display: inline-block;
+    margin-top: 10px;
+    background-color: #005f73;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    box-shadow:  inset 0 0 10px rgba(0, 0, 0, 0.5);
+
+}
+
+.preguntaReportada a:hover {
+    background-color: #004154;
+}
+
+
+.reporte-alta ,
+.reporte-baja {
+    text-transform: uppercase;
+    font-size: 20px;
+    display: none;
+    color: #82a647;
+    margin: 10px 0;
+    font-weight: bold;
+
+}
+.correcta{
+    color: #82a647;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px 0;
+
+
+}
+.flex{
+    display: flex;
+    justify-content: space-between;
+}
+
+/*----------------SECCION SUGERIR---------------*/
+
+.tabla-preguntas2 {
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+
+form {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    width: calc(90% - 10px);
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+.input, select {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    box-shadow:  inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.input::placeholder {
+    color: #999;
+}label {
+     display: inline-flex;
+     align-items: center;
+     margin-right: 5px;
+     position: relative;
+     padding-left: 45px;
+     cursor: pointer;
+     user-select: none;
+ }
+
+label .radio-rect {
+    margin-right: 5px;
+}
+
+label input {
+    display: none;
+}
+
+.radio-rect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 35px;
+    width: 50px;
+    background-color: #444;
+    border: 2px solid #555;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+label input:checked ~ .radio-rect {
+    background-color: #2d6e31;
+    border: 2px solid #1b501f;
+    color: white;
+}
+
+.radio-container {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #005f73;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 40px;
+}
+
+input[type="submit"]:hover {
+    background-color: #013843;
+}
+
+input[type="submit"]:focus {
+    outline: none;
+}
+.darDeBja a {
+    display: block;
+    width:93%;
+    padding: 10px;
+    background-color: #d32f2f;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    font-family: 'Arial', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    margin-top: 10px;
+}
+.darDeBja a:hover {
+    background-color: #ff3c00;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), inset 0 0 15px rgba(0, 0, 0, 0.6);
+    transform: scale(1.05);
+}
+.form .input {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.form .input input[type="text"] {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+}
+
+.form .input input[type="text"]:focus {
+    outline: none;
+    border-color: #ffffff;
+}

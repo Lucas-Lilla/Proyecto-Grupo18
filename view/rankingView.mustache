@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/preguntados/public/estilos/ranking.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Stencil+Text:wght@100..900&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Honk&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Stick+No+Bills:wght@800&display=swap" rel="stylesheet">
+    <title>Ranking</title>
+
+</head>
+<body class="contenedorRankingBig">
+<a href="/preguntados/lobby/mostrarPantallaLobby" class="boton-margen"><span class="material-symbols-outlined">arrow_back</span></a>
+
+<div class="content-wrapper">
+    <div class="bodyRanking mt">
+        <h1>RANKING</h1>
+        <div class="contenedorRanking">
+            <div class="ranking-list">
+                {{#ranking}}
+                    <div class="ranking-item {{#isFirst}}first-place{{/isFirst}} {{#isSecond}}second-place{{/isSecond}} {{#isThird}}third-place{{/isThird}}">
+                        <div class="circle {{#isFirst}}first{{/isFirst}} {{#isSecond}}second{{/isSecond}} {{#isThird}}third{{/isThird}}" style="margin: 1px">{{posicion}}</div>
+                        <div class="circle ml">
+                            <img src="{{imagen}}" alt="imagen de usuario">
+                        </div>
+                        <a href="/preguntados/perfil/mostrarPantallaPerfilPublico?usuario={{usuario}}" class="user-cell">{{usuario}}</a>
+                        <div class="qr-cell">
+                            <img src="{{qr_code}}" alt="Código QR" id="qr">
+                        </div>
+                        <div class="puntaje">
+                            <img src="/preguntados/public/imagenes/trofeo.png" alt="trofeo" class="trofeo">
+                            {{puntaje}}
+                        </div>
+                    </div>
+                {{/ranking}}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="bodyRankingIndividual">
+        <h1>Ranking Individual</h1>
+        <div class="contenedorRanking individual mh">
+            <div class="ranking-list individual">
+                <div class="ranking-item header">
+                    <div class="cell">Posición</div>
+                    <div class="cell">Puntaje</div>
+                    <div class="cell">Fecha</div>
+                </div>
+                {{#rankingIndividual}}
+                    <div class="ranking-item">
+                        <div class="cell">{{posicionIndividual}}</div>
+                        <div class="cell">{{puntaje}}</div>
+                        <div class="cell">{{fecha}}</div>
+                    </div>
+                {{/rankingIndividual}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<img src="/preguntados/public/imagenes/estrellas.png" alt="estrellas" class="imgStar">
+<img src="/preguntados/public/imagenes/trofeos.png" alt="3trofeo" class="trofeos3">
+
+</body>
+</html>

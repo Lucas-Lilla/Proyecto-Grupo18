@@ -1,0 +1,123 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Wet+Paint&display=swap');
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.contenedor,.contenedorError {
+    height: 100vh;
+    background-image: url("/preguntados/public/imagenes/trampa.png");
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: #5a0a0a;
+    position: relative;
+    font-family: 'Rubik Wet Paint', cursive;
+
+}
+.mensaje {
+    font-family: 'Rubik Wet Paint', cursive;
+    font-size: 4.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: typing 5s steps(30) forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    border-right: .15em solid orange;
+    width: 23ch;
+    position: relative;
+    top: -40px;
+
+}
+.boton-lobby {
+    background-color: #8a1111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 10s forwards;
+    margin-top: 390px;
+}
+.boton-lobby:hover {
+    background-color: #470909;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+@keyframes typing {
+    from { width: 0 }
+    to { width: 23ch }
+}
+@keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+/****------------------ESTILO ERROR-----------******/
+.contenedorError {
+    background-image: url("/preguntados/public/imagenes/error.png");
+}
+.mensaje2 {
+    font-size: 3em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+    animation: slideDown 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    top: 20px;
+    text-transform: uppercase;
+}
+.submensaje {
+    font-size: 4em;
+    color: #ffffff;
+    font-family: 'Lobster', cursive;
+    animation: slideDown 3s forwards;
+    white-space: nowrap;
+    overflow: hidden;
+    position: relative;
+    top: 10px;
+}
+.boton-lobby2 {
+    background-color: #8a1111;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 16px 32px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    opacity: 0;
+    animation: fadeIn 7s forwards;
+    margin-top: 350px;
+}
+.boton-lobby:hover,.boton-lobby2:hover {
+    background-color: #470909;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+@keyframes fadeIn {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}

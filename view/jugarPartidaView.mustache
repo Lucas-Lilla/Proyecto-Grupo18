@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/preguntados/public/estilos/jugarPartida.css">
+    <link rel="stylesheet" href="/preguntados/public/estilos/modalAbandono.css">
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Stencil+Text:wght@100..900&family=Honk&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Stick+No+Bills:wght@800&display=swap"
+          rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+</head>
+<body>
+<nav>
+    <div class="nav-left">
+        <div class="vidas-contenedor">
+            {{#vidas}}
+                <div class="star"><i class="fas fa-star" style="color:goldenrod"></i></div>
+            {{/vidas}}
+        </div>
+        <div class="puntos-contenedor">
+            <i class="fas fa-trophy" style="color:goldenrod; font-size: 1.5em;"></i>
+            <span class="puntos-texto">{{puntaje}}</span>
+        </div>
+    </div>
+    <!--///////////////////////////////////////////////////////////////TIMER////////////////////////////////////////////////////////////-->
+    {{#iniciarTimer}}
+        <div id="timer-container">
+            <div class="tiempoEscrito">
+                <h1>Tiempo restante: <span id="timer">{{tiempoRestante}} segundos</span></h1>
+            </div>
+            <div id="progress-bar-container">
+                <div id="progress-bar"></div>
+            </div>
+        </div>
+    {{/iniciarTimer}}
+    <!--///////////////////////////////////////////////////////////////MUSIC////////////////////////////////////////////////////////////-->
+    <div class="nav-right">
+        <i id="toggleMusica" class="fas fa-music boton-musica"></i>
+        <a href="javascript:void(0)" class="boton-margen" id="openCustomExitModal"><i
+                class="fas fa-sign-out-alt"></i></a>
+    </div>
+
+</nav>
+
+<div class="contenedor">
+    <div class="{{categoria.clase}} categoria"
+         style="background-color: {{categoria.color}};">{{categoria.descripcion}}</div>
+    <div class="pregunta">{{pregunta.descripcion}}</div>
+    <ul>
+        {{#resultado}}
+            {{#respuestas}}
+                <li>
+                    <p class="respuesta {{#esSeleccionada}}respuestaSeleccionada {{/esSeleccionada}}{{color}}">{{descripcion}}
+                        <i
+                                class="fas {{icono}}"></i></p>
+                </li>
+            {{/respuestas}}
+        {{/resultado}}
+        {{^resultado}}
+            {{#respuestas}}
+                <li>
+                    <a href="/preguntados/jugarPartida/mostrarPantallaDePartida?respuesta_id={{id}}"
+                    class="respuesta-link">{{descripcion}}</a>
+                </li>
+            {{/respuestas}}
+        {{/resultado}}
+    </ul>
+    {{#resultado}}
+        <div class="resultado">{{resultado}}</div>
+        {{#finDelJuego}}
+            <button id="openGameOverModal" class="siguiente-btn" style="display:none;">FIN DEL JUEGO</button>
+            <div class="botones">
+                <a href="/preguntados/jugarPartida/empezarPartida" id="btnModal">JUGAR DE NUEVO</a>
+                <a href="/preguntados/jugarPartida/volverAlLobby" id="btnModal">AL LOBBY</a>
+            </div>
+
+        {{/finDelJuego}}
+        {{^finDelJuego}}
+            <a href="/preguntados/jugarPartida/siguientePregunta" class="siguiente-btn">SIGUIENTE PREGUNTA</a>
+        {{/finDelJuego}}
+
+        <!--/////////////////////////////////////////////////BOTON PARA REPORTAR////////////////////////////////////////////////-->
+        {{^reportar}}
+            <button id="reportar" onclick="abrirModalReporte()">Reportar Pregunta</button>
+        {{/reportar}}
+        <!--////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+    {{/resultado}}
+
+    <!-- Botón para abrir el modal de confirmación de abandono -->
+    <a href="javascript:void(0)" class="boton-margen" id="openCustomExitModal">
+        <i class="fas fa-sign-out-alt"></i>
+    </a>
+
+</div>
+<div class="containerAnimacion">
+    <br><br>
+    <img src="/preguntados/public/imagenes/detective-corriendo.gif" alt="Imagen en movimiento" class="animacion">
+</div>
+
+<audio id="musicaFondo" loop>
+    <source src="/preguntados/public/imagenes/SomosdeCalleDaddyYankee.mp3" type="audio/mpeg">
+    Tu navegador no soporta la reproducción de audio.
+</audio>
+<!--////////////////////////////////////////////////////////MODALES SECTION///////////////////////////////////////////////////////////////////////-->
+
+<!-- Modal de reporte -->
+<div id="reportModal" class="modal">
+    <div class="modal-contentReporte ">
+        <button class="closeReport" id="closeReportModal" onclick="cerrarModalReporte()"><span>&times;</span></button>
+        <h2>Reporte Secreto</h2>
+        <p>Detective, describe el misterio que encontraste:</p>
+        <form method="post" action="#" id="enviar">
+            <textarea placeholder="Escribe tu reporte aquí..." id="reporte" required></textarea>
+            <button type="submit">Enviar Reporte</button>
+        </form>
+    </div>
+</div>
+
+
+<!-- Modal de confirmación de abandono -->
+<div id="customExitModal" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <h3>Confirmar Abandono</h3>
+            <span class="close-custom" id="closeCustomExitModal">&times;</span>
+        </div>
+        <div class="modal-body-custom">
+            ¿Estás seguro de que deseas abandonar la partida?
+        </div>
+        <div class="modal-footer-custom">
+            <!-- Botón para cancelar -->
+            <button id="customCancelButton" class="boton-cancelar-custom">Cancelar</button>
+            <!-- Enlace para abandonar la partida -->
+            <a href="/preguntados/jugarPartida/volverAlLobby" class="boton-abandonar-custom">Abandonar</a>
+        </div>
+    </div>
+</div>
+
+
+<!-- Modal de fin del juego -->
+<div id="gameOverModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeGameOverModal">&times;</span>
+        <img src="/preguntados/public/imagenes/gameOver.gif" class="gif" alt="gameover">
+    </div>
+</div>
+
+
+<!--////////////////////////////////////////////////////////SCRIPTS///////////////////////////////////////////////////////////////////////-->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="/preguntados/public/js/musica.js"></script>
+<script src="/preguntados/public/js/customModal.js"></script>
+<script>
+    // Función para abrir el modal de fin del juego automáticamente
+    window.onload = function () {
+        var finDelJuego = {{finDelJuego}};
+        if (finDelJuego) {
+            document.getElementById('gameOverModal').style.display = 'block';
+        }
+    };
+
+    // Función para cerrar el modal de fin del juego
+    document.getElementById('closeGameOverModal').onclick = function () {
+        document.getElementById('gameOverModal').style.display = 'none';
+    };
+
+    // Función para cerrar el modal si se hace clic fuera del contenido
+    window.onclick = function (event) {
+        if (event.target == document.getElementById('gameOverModal')) {
+            document.getElementById('gameOverModal').style.display = 'none';
+        }
+    };
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('#enviar').submit(function (event) {
+            event.preventDefault();
+
+            var reporteTexto = $('#reporte').val();
+            var idPregunta = {{pregunta.id}};
+
+            $.ajax({
+                url: 'reportarPregunta',
+                type: 'POST',
+                data: {
+                    id_pregunta: idPregunta,
+                    reporte: reporteTexto
+                },
+                success: function (response) {
+                    if (response.status === 'success') {
+                        $('#reportar').hide();
+                        $('#reporte').hide();
+                        $('#enviar').hide();
+                        $('#reportModal').hide();
+                    } else {
+                        alert('Error al reportar la pregunta');
+                    }
+                },
+                error: function (error) {
+                    alert('Error al reportar la pregunta');
+                }
+            });
+        });
+    });
+</script>
+
+<script>
+        {{#iniciarTimer}}
+        document.addEventListener('DOMContentLoaded', function () {
+            const timerSpan = document.getElementById('timer');
+            const progressBar = document.getElementById('progress-bar');
+            const idPregunta = {{ pregunta.id }};
+            const duracion = 30;
+            let timerInterval;
+
+            function updateTimer() {
+                fetch('/preguntados/jugarPartida/obtenerTiempoRestante')
+                        .then(response => response.json())
+                        .then(data => {
+                            timerSpan.textContent = data.tiempoRestante + ' segundos';
+
+                            const percentage = (data.tiempoRestante / duracion) * 100;
+                            progressBar.style.width = percentage + '%';
+
+                            if (data.tiempoRestante <= 0) {
+                                clearInterval(timerInterval);
+                                obtenerIdRespuestaIncorrecta(idPregunta);
+                            }
+                        })
+                        .catch(error => console.error('Error al obtener el tiempo restante:', error));
+            }
+
+            function obtenerIdRespuestaIncorrecta(idPregunta) {
+                $.ajax({
+                    url: '/preguntados/jugarPartida/obtenerIdRespuestaIncorrecta',
+                    type: 'POST',
+                    data: {
+                        id_pregunta: idPregunta
+                    },
+                    success: function (response) {
+                        const respuesta_id = response.respuesta_id;
+                        window.location.href = '/preguntados/jugarPartida/mostrarPantallaDePartida?respuesta_id=' + respuesta_id;
+                    },
+                    error: function () {
+                        alert('Error al obtener el ID de la respuesta incorrecta.');
+                    }
+                });
+            }
+
+            timerInterval = setInterval(updateTimer, 1000);
+            updateTimer();
+        });
+        {{/iniciarTimer}}
+</script>
+
+</body>
+</html>

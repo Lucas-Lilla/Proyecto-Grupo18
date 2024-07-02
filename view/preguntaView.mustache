@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear pregunta</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="/preguntados/public/estilos/pregunta.css">
+</head>
+<body>
+
+<a href='/preguntados/editor/mostrarPantallaEditor' class="boton-margen"><span class="material-icons">arrow_back</span></a>
+
+<h2>{{#esEdicion}}MODIFICAR PREGUNTA {{/esEdicion}}
+    {{^esEdicion}}Crear Pregunta{{/esEdicion}}</h2>
+
+
+<form method="post" action="{{#esEdicion}}/preguntados/editor/actualizarPregunta{{/esEdicion}}{{^esEdicion}}/preguntados/editor/guardarPregunta{{/esEdicion}}">
+    <input type="hidden" name="id_pregunta" value="{{#id_pregunta}}{{id_pregunta}}{{/id_pregunta}}">
+    <input type="text" placeholder="Pregunta" class="input" autofocus required name="descripcion" autocomplete="off" value="{{descripcion}}">
+    <select name="categoria" class="input" required>
+        {{#categorias}}
+            <option value="{{id}}" {{#selected}}selected{{/selected}}>
+                {{descripcion}}
+            </option>
+        {{/categorias}}
+    </select>
+    <select name="dificultad" class="input" required>
+        {{#dificultades}}
+            <option value="{{id}}" {{#selected}}selected{{/selected}}>
+                {{descripcion}}
+            </option>
+        {{/dificultades}}
+    </select>
+    <input type="text" class="input" autofocus required name="A" autocomplete="off" value="{{#esEdicion}}{{respuesta_A}}{{/esEdicion}}{{^esEdicion}}A) {{/esEdicion}}">
+    <input type="text" class="input" autofocus required name="B" autocomplete="off" value="{{#esEdicion}}{{respuesta_B}}{{/esEdicion}}{{^esEdicion}}B) {{/esEdicion}}">
+    <input type="text" class="input" autofocus required name="C" autocomplete="off" value="{{#esEdicion}}{{respuesta_C}}{{/esEdicion}}{{^esEdicion}}C) {{/esEdicion}}">
+    <input type="text" class="input" autofocus required name="D" autocomplete="off" value="{{#esEdicion}}{{respuesta_D}}{{/esEdicion}}{{^esEdicion}}D) {{/esEdicion}}">
+    <input type="hidden" name="id_respuesta_A" value="{{id_respuesta_A}}">
+    <input type="hidden" name="id_respuesta_B" value="{{id_respuesta_B}}">
+    <input type="hidden" name="id_respuesta_C" value="{{id_respuesta_C}}">
+    <input type="hidden" name="id_respuesta_D" value="{{id_respuesta_D}}">
+
+    <div>Respuesta correcta:</div>
+    <div class="radio-container">
+        <label>
+            <input type="radio" name="correcta" value="A" {{#esCorrectaA}}checked{{/esCorrectaA}}>
+            <div class="radio-rect">A</div>
+        </label>
+        <label>
+            <input type="radio" name="correcta" value="B" {{#esCorrectaB}}checked{{/esCorrectaB}}>
+            <div class="radio-rect">B</div>
+        </label>
+        <label>
+            <input type="radio" name="correcta" value="C" {{#esCorrectaC}}checked{{/esCorrectaC}}>
+            <div class="radio-rect">C</div>
+        </label>
+        <label>
+            <input type="radio" name="correcta" value="D" {{#esCorrectaD}}checked{{/esCorrectaD}}>
+            <div class="radio-rect">D</div>
+        </label>
+    </div>
+    <input type="submit" value="{{#esEdicion}}Guardar cambios{{/esEdicion}}{{^esEdicion}}Crear pregunta{{/esEdicion}}" name="guardar">
+</form>
+
+</body>
+</html>

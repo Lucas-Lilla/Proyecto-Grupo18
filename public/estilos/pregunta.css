@@ -1,0 +1,155 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #1c1c1c;
+    color: #e0e0e0;
+    font-family: 'Roboto', sans-serif;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-image: url(/preguntados/public/imagenes/fondoPregunta.png);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+h2 {
+    font-family: 'Special Elite', cursive;
+    margin: 20px;
+    font-size: 25px;
+    text-transform: uppercase;
+}
+
+.boton-margen {
+    background-color: #4a4a4a;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 25px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    left: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.boton-margen:hover {
+    background-color: rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.boton-margen:focus {
+    outline: none;
+}
+
+form {
+    background-color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+form div {
+    margin-bottom: 10px;
+}
+
+.input, select {
+    background-color: #444;
+    color: #fff;
+    border: 1px solid #555;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.input::placeholder {
+    color: #999;
+}
+
+label {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 5px;
+    position: relative;
+    padding-left: 45px;
+    cursor: pointer;
+    user-select: none;
+}
+
+label .radio-rect {
+    margin-right: 5px;
+}
+
+label input {
+    display: none;
+}
+
+.radio-rect {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 35px;
+    width: 50px;
+    background-color: #444;
+    border: 2px solid #555;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #999;
+}
+
+label input:checked ~ .radio-rect {
+    background-color: #2d6e31;
+    border: none;
+    color: white;
+}
+
+.radio-container {
+    display: flex;
+    gap: 5px;
+    margin-bottom: 10px;
+}
+
+input[type="submit"] {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    letter-spacing: 1.5px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 40px;
+}
+
+input[type="submit"]:hover {
+    background-color: #ff3c00;
+}
+
+input[type="submit"]:focus {
+    outline: none;
+}

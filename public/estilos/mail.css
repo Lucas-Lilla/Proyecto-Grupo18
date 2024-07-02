@@ -1,0 +1,68 @@
+body {
+    background-image: url(/preguntados/public/imagenes/mail.png);
+    font-family: 'Courier New', Courier, monospace;
+    background-color: #1c1c1c;
+    color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+}
+
+.contenedor {
+    background-color: #2b2b2b;
+    border: 2px solid #CD171D;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    max-width: 600px;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.titulo {
+    font-size: 2.5em;
+    color: #CD171D;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.texto p {
+    font-size: 1.2em;
+    margin: 10px 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.top-secret {
+    font-size: 1.5em;
+    color: #CD171D;
+    margin-top: 0;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.firma {
+    margin-top: 40px;
+    font-style: italic;
+    color: #a9a9a9;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+.foto img {
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(0, 0, 0, 0.5);
+    margin-top: 20px;
+}
+
+footer {
+    font-size: 0.8em;
+    color: rgb(192, 192, 192);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    margin-top: 20px;
+}

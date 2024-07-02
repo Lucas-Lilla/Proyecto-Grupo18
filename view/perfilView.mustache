@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil de Usuario con Mapa</title>
+    <link rel="stylesheet" href="/preguntados/public/estilos/perfil.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Stencil+Text:wght@100..900&family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Honk&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&family=Stick+No+Bills:wght@800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+
+</head>
+<body id="bodyPerfil">
+<a href="/preguntados/lobby/mostrarPantallaLobby" class="boton-margen">
+    <span class="material-symbols-outlined">
+        arrow_back
+    </span>
+</a>
+<a href="javascript:void(0)" class="boton-margenRight" id="openChangeModal" onclick="abrirModalEditor()"><span class="material-symbols-outlined">edit_note</span></a>
+
+
+<div class="columnaFoto">
+    <img src="{{imagen}}" alt="Foto de perfil">
+</div>
+<div class="columnaDatos mt">
+    <h2 class="user">{{usuario}}</h2>
+    <br>
+    <h3>AGENTE: <p>{{nombre}}</p></h3>
+    <h3>NIVEL:<p>{{nivel}}</p></h3>
+    <h3>RECORD: <p>{{puntaje}} puntos</p></h3>
+    <h3>FECHA DE NACIMIENTO: <p>{{fecha}}</p></h3>
+    <h3>EMAIL: <p>{{email}}</p></h3>
+    <h3>GENERO: <p>{{sexo}}</p></h3>
+    <h3>UBICACIÓN: <p>{{ubicacion}}</p></h3>
+    <h3>CRIMINAL: <p>NO</p></h3>
+    <br>
+
+    {{#mensajeExito}}
+        <div class="msjExito">¡Cambios guardados correctamente!</div>
+    {{/mensajeExito}}
+
+</div>
+
+<!-- Modal -->
+<div id="modalVerPartidas" class="modal">
+    <div class="modal-content" id="bodyRankingIndividual">
+        <span class="close">&times;</span>
+            <h1>Partidas jugadas</h1>
+            <div class="contenedorRanking individual mh">
+                <div class="ranking-list individual">
+                    <div class="ranking-item header">
+                        <div class="cell">Posición</div>
+                        <div class="cell">Puntaje</div>
+                        <div class="cell">Fecha</div>
+                    </div>
+                    {{#rankingIndividual}}
+                        <div class="ranking-item">
+                            <div class="cell">{{posicionIndividual}}</div>
+                            <div class="cell">{{puntaje}}</div>
+                            <div class="cell">{{fecha}}</div>
+                        </div>
+                    {{/rankingIndividual}}
+                </div>
+            </div>
+    </div>
+</div>
+
+<!-- Modal editor-->
+<div id="modalEditor" class="modal-editor">
+    <div class="modal-content-editor">
+        <span class="close" onclick="cerrarModalEditor()">&times;</span>
+        <h1>Editar Perfil</h1>
+        <form id="formEditarPerfil" action="/preguntados/perfil/actualizarPerfil" method="post">
+            <div class="campo-editar">
+                <label for="nombre">Nombre:</label>
+                <div class="input-group">
+                    <input type="text" id="nombre" name="nombre" value="{{nombre}}">
+                    <span class="material-symbols-outlined icono-editar">edit_note</span>
+                </div>
+            </div>
+            <div class="campo-editar">
+                <label for="fecha">Fecha de Nacimiento:</label>
+                <div class="input-group">
+                    <input type="date" id="fecha" name="fecha" value="{{fecha}}">
+                    <span class="material-symbols-outlined icono-editar">edit_note</span>
+                </div>
+            </div>
+            <div class="campo-editar">
+                <label for="sexo">Género:</label>
+                <div class="input-group">
+                    <select id="sexo" name="sexo">
+                        <option value="Masculino" {{#esMasculino}}selected{{/esMasculino}}>Masculino</option>
+                        <option value="Femenino" {{#esFemenino}}selected{{/esFemenino}}>Femenino</option>
+                        <option value="Prefiero no decirlo" {{#esNoDice}}selected{{/esNoDice}}>Prefiero no decirlo</option>
+                    </select>
+                    <span class="material-symbols-outlined icono-editar">edit_note</span>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="boton-guardar">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="/preguntados/public/js/perfil.js"></script>
+<script src="/preguntados/public/js/customModal.js"></script>
+
+</body>
+</html>

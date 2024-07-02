@@ -1,0 +1,236 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.boton-margen {
+    background-color:#3E5F53;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px 20px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+a:hover{
+    background-color: #273138;
+
+}
+#bodyRegistrar {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background: url('/preguntados/public/imagenes/folder2.png') no-repeat center center fixed;
+    background-size: cover;
+}
+.contenedorFormulario {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
+}
+.dosPartes {
+    display: flex;
+    width: 80%;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.formulario {
+    margin-left: 130px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.imagen {
+    width: 50%;
+    padding: 20px;
+}
+.imagen img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+.titulo-inicio {
+    text-align: center;
+    margin-left: 10px;
+    margin-bottom: 20px;
+    color: #A30A0A;
+    border: 5px solid #A30A0A;
+    border-radius: 10px;
+    font-size: 1.9em;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-family: "Big Shoulders Stencil Text", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 800;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+}
+.input, .botonArchivo, .boton.registro, select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 10px 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.botonArchivo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color:#CC7D5C;
+    color: #fff;
+    padding: 8px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    width: 50%;
+    margin: 10px auto;
+}
+.botonArchivo:hover {
+    background-color:#D6D0A1;
+    box-shadow: 0 4px 8px rgba(236, 64, 122, 0.3);
+}
+
+.botonArchivo input[type="file"] {
+    display: none;
+}
+.registro {
+    background-color:#3E5F53;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.registro:hover {
+    background-color: #273138;
+    box-shadow: 0 4px 8px rgba(216, 27, 96, 0.3);
+}
+.mensaje-error-registro {
+    color: red;
+    text-align: center;
+}
+.centrado {
+    text-align: center;
+}
+.margin-top {
+    margin-top: 20px;
+}
+#map {
+    height: 140px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin: 10px 0 10px 10px;
+}
+#fotoPerfilForm {
+    margin-top: 10px;
+    text-align: center;
+}
+#fotoPerfilForm img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/***-----------------ESTIO IS------------**/
+#bodyInicioSesion{
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background: url('/preguntados/public/imagenes/folderIni2 (1).png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.tituloInicio {
+    transform: translateX(73%);
+    border-radius: 10px;
+    padding: 10px 137px;
+    font-size: 1.8em;
+    font-family: "Big Shoulders Stencil Text", sans-serif;
+    font-optical-sizing: auto;
+    margin-bottom: 25px;
+    color: #A30A0A;
+    border: 5px solid #A30A0A;
+    font-weight: 800;
+    font-style: normal;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+.contenedorIngreso {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ingreso-formulario {
+    transform: translateX(70%);
+}
+.margin-topDoble {
+    margin-top:100px;
+}
+.error{
+    color: red;
+    padding-top: 10px;
+    transform: translateX(60%);
+}
+.msjExito{
+    color: green;
+    padding-top: 10px;
+    transform: translateX(65%);
+}
+
+.input:focus,
+.select:focus {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.74);
+    outline: none;
+}
+/* Media Queries */
+@media (max-width: 768px) {
+    .index {
+        padding: 15px;
+        border-radius: 10px;
+        max-width: 100%;
+    }
+
+    .formulario h3 {
+        font-size: 1.2em;
+    }
+
+    .registro {
+        font-size: 0.9em;
+        padding: 8px;
+    }
+
+    .botonArchivo {
+        font-size: 0.9em;
+        padding: 8px 16px;
+    }
+}

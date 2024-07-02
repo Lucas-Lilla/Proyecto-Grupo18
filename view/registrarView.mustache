@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Registro</title>
+    <link rel="stylesheet" href="/preguntados/public/estilos/formulario.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Big+Shoulders+Stencil+Text:wght@100..900&family=Honk&family=Roboto+Serif:ital,opsz,wght@0,8..144,100..900;1,8..144,100..900&family=Stick+No+Bills:wght@800&display=swap" rel="stylesheet">
+</head>
+<body id="bodyRegistrar">
+<div class="contenedorFormulario">
+    <div class="dosPartes">
+        <div class="imagen">
+        </div>
+        <div class="formulario">
+            <br>
+            <h3 class="titulo-inicio margin-top">REGISTRARSE</h3>
+            <form method="post" action="/preguntados/registrar/procesarFormulario" enctype="multipart/form-data">
+                <input type="text" placeholder="Nombre completo" class="input" autofocus required name="nombre" autocomplete="off" value="{{nombre}}">
+                <input type="text" placeholder="Nombre de usuario" class="input" required name="username" autocomplete="off" value="{{usuario}}">
+                <input type="date" class="input" required name="fecha" autocomplete="off" value="{{fecha}}">
+                <select name="sexo" class="input" required>
+                    <option disabled {{#sexoInvalido}}selected{{/sexoInvalido}}>Seleccionar sexo</option>
+                    <option value="Masculino" {{#esMasculino}}selected{{/esMasculino}}>Masculino</option>
+                    <option value="Femenino" {{#esFemenino}}selected{{/esFemenino}}>Femenino</option>
+                    <option value="Prefiero no decirlo" {{#esNoDice}}selected{{/esNoDice}}>Prefiero no decirlo</option>
+                </select>
+                <div class="margin centrado">
+                    <input type="text" id="ubicacion" name="ubicacion" placeholder="Ingresa tu ubicación" class="input"
+                           autocomplete="off" required value="{{ubicacion}}">
+                    <div id="map" ></div>
+                </div>
+                <input type="email" placeholder="Correo electrónico" class="input" required name="email" autocomplete="off" value="{{mail}}">
+                <input type="password" placeholder="Contraseña" class="input" required name="pass" autocomplete="off" value="{{password}}">
+                <input type="password" placeholder="Repeti la contraseña" class="input" required name="r_pass" autocomplete="off" value="{{r_password}}">
+                <div class="margin-top centrado">
+                    <div id="fotoPerfilForm"></div>
+                    <label for="file" class="botonArchivo">
+                        Subir foto de perfil
+                        <input type="file" name="file" id="file" accept=".jpg, .png" onchange="mostrarVistaPrevia(event)" value="{{foto}}">
+                    </label>
+                </div>
+                <script src="/preguntados/public/js/main.js"></script>
+                <input type="submit" value="Registrarse" class="boton registro" name="enviar">
+                {{#usuarioExistente}}
+                    <p class="mensaje-error-registro">Nombre de usuario existente. Seleccione otro.</p>
+                {{/usuarioExistente}}
+                {{#contraseñaInvalida}}
+                    <p class="mensaje-error-registro">Las contraseñas no coinciden.</p>
+                {{/contraseñaInvalida}}
+                {{#camposVacios}}
+                    <p class="mensaje-error-registro">Los campos no pueden estar vacíos.</p>
+                {{/camposVacios}}
+            </form>
+            <a href="/preguntados/iniciarSesion/mostrarPantallaIniciarSesion" class="boton-margen">Iniciar Sesion</a>
+        </div>
+    </div>
+</div>
+<script>
+    function mostrarVistaPrevia(event) {
+        var reader = new FileReader();
+        reader.onload = function(){
+            var output = document.getElementById('fotoPerfilForm');
+            output.innerHTML = '<img src="' + reader.result + '" alt="Vista previa">';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+</script>
+<script src="/preguntados/public/js/mapa.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAiq3xISXSZYgkd9GDAOdajy4NK2d3L7dY&libraries=places&callback=initMap" async defer></script>
+</body>
+</html>

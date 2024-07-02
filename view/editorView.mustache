@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Editor</title>
+    <link rel="stylesheet" href="/preguntados/public/estilos/editor.css">
+    <link rel="stylesheet" href="/preguntados/public/estilos/modalAbandono.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-...tuHASH...==" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/preguntados/public/js/customModal.js"></script>
+
+</head>
+<body>
+<div class="header">
+        <h1>Editor</h1>
+    <div class="header-right">
+        <a href="/preguntados/lobby/cerrarSesion" class="boton-margen" id="openCustomExitModal">
+            <span class="material-symbols-outlined">logout</span>
+        </a>
+    </div>
+</div>
+
+<div class="intro">
+    <h1>PANEL DE CONTROL</h1>
+    <p>Bienvenido al panel de edición de preguntas del departamento de detectives. Aquí puedes:</p>
+</div>
+
+<div class="opciones">
+    <button id="btnDarAlta">Dar de alta una pregunta</button>
+    <button id="btnDarBajaModificar">Dar de baja o modificar una pregunta</button>
+    <button id="btnPreguntasReportadas">Preguntas reportadas</button>
+    <button id="btnPreguntasSugeridas">Preguntas sugeridas</button>
+</div>
+
+<div id="seccionAlta" class="seccion seccionDarDeAlta">
+    <div class="pregunta">
+        Dar de alta una pregunta:
+        <a href="/preguntados/editor/crearPregunta" class="botonCrear">Crear</a>
+    </div>
+</div>
+
+<div id="seccionBajaModificar" class="seccion">
+    <div class="tabla-preguntas">
+        {{#preguntas}}
+            <div class="pregunta-cuadrado">
+                <div class="pregunta">
+                    {{id}}
+                    {{descripcion}}
+                    <div class="botones">
+                        <a href="/preguntados/editor/eliminarPregunta?id={{id}}" style="background-color:#5a0a0a ">Dar de baja</a>
+                        <a href="/preguntados/editor/editarPregunta?id={{id}}" >Modificar</a>
+                    </div>
+                </div>
+            </div>
+        {{/preguntas}}
+    </div>
+</div>
+
+<div id="seccionReportadas" class="seccion">
+    <h2>Preguntas reportadas:</h2>
+
+    {{#preguntas_reportadas}}
+        <div class="preguntaReportada">
+            <div class="pregunta-info">
+                <h2><strong>Pregunta ID: </strong>{{id_pregunta}}</h2>
+                <p><strong class="uppercase">Descripción de la pregunta:</strong></p>
+                <p>{{pregunta_descripcion}}</p>
+
+                <p><strong class="uppercase">Categoría: </strong>{{categoria}}</p>
+                <p><strong class="uppercase">Dificultad:</strong> {{dificultad}}</p>
+                <p><strong class="uppercase">Cantidad de aciertos:</strong> {{cant_aciertos}}</p>
+                <p><strong class="uppercase">Cantidad entregadas: </strong>{{cant_entregadas}}</p>
+                <h3>Respuestas:</h3>
+                <ul>
+                    {{#respuestas}}
+                        <li class="flex">
+                            <p>{{respuesta_descripcion}}</p>
+                            <p class="correcta">{{#es_correcta}}CORRECTA{{/es_correcta}}</p>
+                        </li>
+                    {{/respuestas}}
+                </ul>
+                <a href="/preguntados/editor/editarPregunta?id={{id_pregunta}}">EDITAR</a>
+            </div>
+            <div class="reporte-info">
+                <h3>Reportes:</h3>
+                <ul>
+                    {{#reportes}}
+                        <li id="reporte_{{pregunta_reportada_id}}">
+                            <p><strong>ID del reporte: </strong>{{pregunta_reportada_id}}</p>
+                            <p><strong>Reporte: </strong>{{reporte}}</p>
+                            <p><strong>Fecha del reporte:</strong> {{reporte_fecha_creacion}}</p>
+                            <button class="alta" value="{{pregunta_reportada_id}}" style="background-color: #2d6e31">APROBAR</button>
+                            <button class="baja" value="{{pregunta_reportada_id}}" style="background-color: #5a0a0a">RECHAZAR</button>
+                        </li>
+                        <p id="reporte_alta_{{pregunta_reportada_id}}" class="reporte-alta">Reporte aprobado con éxito</p>
+                        <p id="reporte_baja_{{pregunta_reportada_id}}" class="reporte-baja">Reporte eliminado con éxito</p>
+                    {{/reportes}}
+                </ul>
+            </div>
+        </div>
+    {{/preguntas_reportadas}}
+    {{^preguntas_reportadas}}
+        <div>Sin preguntas reportadas</div>
+    {{/preguntas_reportadas}}
+</div>
+
+
+<div id="seccionSugeridas" class="seccion">
+    <h2>Preguntas sugeridas:</h2>
+    <div class="tabla-preguntas2">
+        {{#preguntas_sugeridas}}
+            <div class="pregunta">
+            <form method="post" action="/preguntados/editor/guardarPregunta" class="form">
+                    <input type="hidden" name="id_pregunta_sugerida" value="{{id}}">
+                    <input type="text" placeholder="Descripción" class="input" autofocus required name="descripcion"
+                           autocomplete="off" value="{{pregunta}}">
+                    <select name="categoria" class="input" required>
+                        {{#categorias}}
+                            <option value="{{id}}" {{#selected}}selected{{/selected}}>
+                                {{descripcion}}
+                            </option>
+                        {{/categorias}}
+                    </select>
+                    <select name="dificultad" class="input" required>
+                        {{#dificultades}}
+                            <option value="{{id}}" {{#selected}}selected{{/selected}}>
+                                {{descripcion}}
+                            </option>
+                        {{/dificultades}}
+                    </select>
+                    <div  class="input">
+                        {{#respuestas}}
+                            <input type="text" autofocus required autocomplete="off" name="{{id}}" value="{{texto}}">
+                        {{/respuestas}}
+                    </div>
+                    <div>Respuesta correcta:</div>
+                <div class="radio-container">
+                    <label>
+                        <input type="radio" name="correcta" value="A" {{#esCorrectaA}}checked{{/esCorrectaA}}>
+                        <div class="radio-rect">A</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="correcta" value="B" {{#esCorrectaB}}checked{{/esCorrectaB}}>
+                        <div class="radio-rect">B</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="correcta" value="C" {{#esCorrectaC}}checked{{/esCorrectaC}}>
+                        <div class="radio-rect">C</div>
+                    </label>
+                    <label>
+                        <input type="radio" name="correcta" value="D" {{#esCorrectaD}}checked{{/esCorrectaD}}>
+                        <div class="radio-rect">D</div>
+                    </label>
+                </div>
+                <input type="submit" value="Crear pregunta" name="guardar">
+                </form>
+                <div class="darDeBja">
+                <a href="/preguntados/editor/eliminarPreguntaSugerida?id={{id}}" >Dar de baja</a>
+                </div>
+            </div>
+        {{/preguntas_sugeridas}}
+        {{^preguntas_sugeridas}}
+            <div>Sin preguntas sugeridas</div>
+        {{/preguntas_sugeridas}}
+    </div>
+</div>
+
+
+
+
+
+<!-- Modal de confirmación de abandono -->
+<div id="customExitModal" class="modal-custom">
+    <div class="modal-content-custom">
+        <div class="modal-header-custom">
+            <h3>Confirmar Salida</h3>
+            <span class="close-custom" id="closeCustomExitModal">&times;</span>
+        </div>
+        <div class="modal-body-custom">
+            ¿Estás seguro de que deseas abandonar la plataforma?
+        </div>
+        <div class="modal-footer-custom">
+            <!-- Botón para cancelar -->
+            <button id="customCancelButton" class="boton-cancelar-custom">Cancelar</button>
+            <!-- Enlace para salir -->
+            <a href='/preguntados/lobby/cerrarSesion' class="boton-abandonar-custom">Salir</a>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#btnDarAlta').click(function () {
+            if ($('#seccionAlta').is(':visible')) {
+                $('#seccionAlta').hide();
+            } else {
+                $('.seccion').hide();
+                $('#seccionAlta').show();
+            }
+        });
+
+        $('#btnDarBajaModificar').click(function () {
+            if ($('#seccionBajaModificar').is(':visible')) {
+                $('#seccionBajaModificar').hide();
+            } else {
+                $('.seccion').hide();
+                $('#seccionBajaModificar').show();
+            }
+        });
+
+        $('#btnPreguntasReportadas').click(function () {
+            if ($('#seccionReportadas').is(':visible')) {
+                $('#seccionReportadas').hide();
+            } else {
+                $('.seccion').hide();
+                $('#seccionReportadas').show();
+            }
+        });
+
+        $('#btnPreguntasSugeridas').click(function () {
+            if ($('#seccionSugeridas').is(':visible')) {
+                $('#seccionSugeridas').hide();
+            } else {
+                $('.seccion').hide();
+                $('#seccionSugeridas').show();
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $('.alta').click(function () {
+            var idReporte = $(this).val();
+            var $elementoReporte = $('#reporte_' + idReporte);
+            var $reporteAlta = $('#reporte_alta_' + idReporte);
+            $.ajax({
+                url: 'aprobarReporte',
+                type: 'POST',
+                data: {
+                    id_reporte: idReporte
+                },
+                success: function (response) {
+                    $elementoReporte.remove();
+                    $reporteAlta.show()
+                },
+                error: function () {
+                    alert('Error al aprobar el reporte');
+                }
+            });
+        });
+        $('.baja').click(function () {
+            var idReporte = $(this).val();
+            var $elementoReporte = $('#reporte_' + idReporte);
+            var $reporteBaja = $('#reporte_baja_' + idReporte);
+            $.ajax({
+                url: 'rechazarReporte',
+                type: 'POST',
+                data: {
+                    id_reporte: idReporte
+                },
+                success: function (response) {
+                    $elementoReporte.remove();
+                    $reporteBaja.show()
+                },
+                error: function () {
+                    alert('Error al aprobar el reporte');
+                }
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

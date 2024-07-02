@@ -1,0 +1,522 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#bodyPerfil {
+    font-family: "Space Mono", monospace;
+    background-image: url('/preguntados/public/imagenes/fondoPerfil.png');
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Evitar scroll en la ventana general */
+}
+
+.boton-margen {
+    color: black;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 8px 8px;
+    position: absolute;
+    top: 23px;
+    left: 23px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.boton-margen:hover {
+    background-color: #E7D2A8;
+}
+
+.contenedor {
+    margin-top: 160px;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: left;
+    width: 100%;
+}
+
+.columnaFoto, .columnaDatos {
+    margin: 20px;
+}
+
+.columnaFoto img {
+    width: 203px;
+    height: 220px;
+    margin-left: 120px;
+    transform: translate(-108px, -158px);
+}
+
+.mt {
+    margin-top: 60px;
+}
+
+.columnaDatos {
+    display: flex;
+    flex-direction: column;
+    transform: translate(0, -30px);
+    justify-content: flex-start;
+    max-width: 400px;
+}
+.user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #1C1C1C;
+    text-align: center;
+    width: auto;
+    min-width: 250px;
+    border-radius: 10px;
+    padding: 15px 20px;
+    font-size: 1.5em;
+    font-family: "Big Shoulders Stencil Text", sans-serif;
+    font-optical-sizing: auto;
+    margin:  0; /* Ajuste de márgenes */
+    color: white;
+    border: 3px solid #005f73;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px; /
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.5);
+    position: relative;
+    overflow: hidden;
+    transition: box-shadow 0.3s ease;
+}
+
+.user::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, rgba(0, 95, 115, 0.49), rgba(0, 95, 115, 0));
+    transform: rotate(45deg);
+    transition: all 0.5s ease;
+    z-index: 0;
+}
+
+.user:hover::before {
+    top: -25%;
+    left: -25%;
+    width: 150%;
+    height: 150%;
+
+}
+
+.user span {
+    position: relative;
+    z-index: 1;
+}
+h3 {
+    font-weight: bold;
+    margin: 5px 0 4px 0;
+}
+
+p {
+    display: inline;
+    font-weight: normal;
+    margin-left: 10px;
+}
+
+.boton-ver-partidas {
+    background-color: #8a1111;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 15px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Roboto', sans-serif;
+    position: relative;
+    overflow: hidden;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.boton-ver-partidas:hover {
+    background-color: #470909;
+}
+
+.boton-ver-partidas .material-symbols-outlined {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+
+.boton-reportar-pregunta {
+    background-color: #1c1c1c;
+    color: #ccc;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 1em;
+    padding: 10px 20px;
+    margin-top: 10px;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s, background-color 0.3s;
+    font-family: 'Roboto', sans-serif;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+}
+
+.boton-reportar-pregunta:hover {
+    background-color: #333;
+    color: #fff;
+    border-color: #fff;
+}
+/* Estilos del modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3); /* Sombras internas */
+
+}
+
+
+/* Botón de cierre del modal */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#bodyRankingIndividual {
+    background-color: rgba(90, 10, 10, 0.84);
+    border-radius: 20px;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3); /* Sombras internas */
+
+}
+
+.ranking-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #E8DDCC;
+    border-radius: 25px;
+    margin: 2px 0;
+    border: 4px solid #6B615C;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.3);
+
+}
+
+#bodyRankingIndividual h1 {
+    color: white;
+    font-family: "Big Shoulders Stencil Text", sans-serif;
+    font-weight: 800;
+    font-size: 30px;
+    margin-bottom: 10px;
+    padding-top: 8px;
+}
+
+.contenedorRanking {
+    margin: 2% auto;
+    width: 90%;
+    background-color: #C2B6A2;
+    border-radius: 20px;
+    padding: 5px;
+    border: 4px solid #6B615C;
+    box-sizing: border-box;
+    max-height: 60vh;
+    overflow-y: auto;
+
+}
+
+.contenedorRanking.individual .ranking-list.individual {
+    border-collapse: collapse;
+    width: 100%;
+
+}
+
+.contenedorRanking.individual .ranking-list.individual .ranking-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.36);
+    border-bottom: 1px solid #ddd;
+}
+
+.contenedorRanking.individual .ranking-list.individual .ranking-item.header {
+    font-weight: bold;
+    background-color: #f4f4f4;
+}
+
+.contenedorRanking.individual .ranking-list.individual .cell {
+    flex: 1;
+    text-align: center;
+}
+
+.ranking-list {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+/* Personalización de la barra de scroll */
+.contenedorRanking::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 10px;
+}
+
+.contenedorRanking::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.contenedorRanking::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+    border: 3px solid #f1f1f1;
+}
+
+.contenedorRanking::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.contenedorRanking {
+    border-radius: 10px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #888 #f1f1f1;
+}
+
+/*---------BOTON SALIDA------------*/
+
+.boton-margenRight {
+    background-color: #4a4a4a;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    padding: 16px;
+    font-size: 1.2em;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.boton-margenRight:hover {
+    background-color: rgba(0, 0, 0, 0.28);
+    box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.8);
+}
+
+.boton-margenRight:focus {
+    outline: none;
+}
+
+@media screen and (max-width: 600px) {
+    .boton-margenRight{
+        top: 10px;
+        right: 10px;
+        width: 50px;
+        height: 50px;
+        padding: 12px;
+        font-size: 1em;
+    }
+}
+
+a {
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+
+/**-------------MODAL EDITOOOR----------**/
+.modal-editor {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modal-content-editor {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.9);
+    position: relative;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-content-editor h1 {
+    border-bottom: 2px solid #444;
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-shadow: 2px 2px 4px #000;
+}
+
+.campo-editar {
+    margin-bottom: 15px;
+}
+
+.campo-editar label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    background-color: #222;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.8);
+}
+
+.input-group input,
+.input-group select {
+    border: none;
+    background: none;
+    color: #fff;
+    width: 100%;
+    padding: 5px;
+    outline: none;
+}
+.input-group input,
+select,
+option {
+    background-color: #222;
+    color: #fff;
+}
+
+select {
+    background-color: #222;
+    color: #fff;
+    border: none;
+    outline: none;
+}
+
+option {
+    background-color: #333;
+    color: #fff;
+}
+
+option:hover {
+    background-color: #444;
+}
+
+.icono-editar {
+    color: #888;
+    margin-left: 10px;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.icono-editar:hover {
+    color: #fff;
+}
+
+.boton-guardar {
+    background-color: #444;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.boton-guardar:hover {
+    background-color: #2d6e31;
+}
+
+.modal-footer {
+    text-align: right;
+}
